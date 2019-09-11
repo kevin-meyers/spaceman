@@ -21,8 +21,6 @@ def is_word_guessed(secret_word, letters_guessed):
     Returns: 
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
-    # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-	
 	for letter in secret_word:
 		if letter not in letters_guessed:
 			return False
@@ -71,35 +69,47 @@ def spaceman(secret_word):
       secret_word (string): the secret word to guess.
     '''
 	letters_guessed = []
-
+	num_fails = len(secret_word)
 	while not is_word_guessed(secret_word, letters_guessed):
-    #TODO: show the player information about the game according to the project spec
+		#TODO: show the player information about the game according to the project spec
 
 		guess = input('Guess a letter! ')
 
 
-    #TODO: Ask the player to guess one letter per round and check that it is only one letter
+		if not is_guess_valid(guess):
+			print('Invalid guess')
+			continue
+			
+		else:
+			letters_guessed.append(guess)
+		#TODO: Check if the guessed letter is in the secret or not and give the player feedback
 
-	if not is_guess_valid(guess):
-		print('Invalid guess')
-		continue
+		if is_guess_in_word(guess, secret_word):
+			print('Good work! You still have {num_fails} remaining')
+
+		else:
+			num_fails -= 1
+
+			if num_fails < 0:
+				break
+
+			print('That was incorrect, now you only have {num_fails} remaining')
+		if 
+		print(f'The current progress is {get_guessed_word()}')
+
+	
+	
+	if num_fails < 0:
+		print('You lose!')
 	
 	else:
-		letters_guessed.append(guess)
-    #TODO: Check if the guessed letter is in the secret or not and give the player feedback
-
-	if is_guess_in_word(guess, secret_word):
-		return get_guessed_word()
-
-    #TODO: show the guessed word so far
-
-    #TODO: check if the game has been won or lost
-
-
-
+		print('You won!')
 
 
 
 #These function calls that will start the game
-secret_word = load_word()
-spaceman(load_word())
+play = True
+
+while play:
+	spaceman(load_word())
+	play = input('Do you want to play again? y/any').lower() == 'y'
