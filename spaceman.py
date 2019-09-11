@@ -70,16 +70,26 @@ def spaceman(secret_word):
     Args:
       secret_word (string): the secret word to guess.
     '''
+	letters_guessed = []
 
-
+	while not is_word_guessed(secret_word, letters_guessed):
     #TODO: show the player information about the game according to the project spec
 
-	guess = input('Guess a letter! ')
+		guess = input('Guess a letter! ')
 
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
 
+	if not is_guess_valid(guess):
+		print('Invalid guess')
+		continue
+	
+	else:
+		letters_guessed.append(guess)
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
+
+	if is_guess_in_word(guess, secret_word):
+		return get_guessed_word()
 
     #TODO: show the guessed word so far
 
