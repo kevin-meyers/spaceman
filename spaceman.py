@@ -10,8 +10,7 @@ def load_word():
     with open('words.txt', 'r') as f:
     	words_list = f.read().split(' ')
 
-    secret_word = random.choice(words_list)
-    return secret_word
+    return random.choice(words_list)
 
 def is_word_guessed(secret_word, letters_guessed):
     '''
@@ -57,6 +56,13 @@ def is_guess_in_word(guess, secret_word):
 	return guess in secret_word
 
 
+def is_guess_valid(guess):
+	'''
+
+
+	'''
+	return guess.isalpha() and len(guess) == 1
+
 
 def spaceman(secret_word):
     '''
@@ -67,6 +73,9 @@ def spaceman(secret_word):
 
 
     #TODO: show the player information about the game according to the project spec
+
+	guess = input('Guess a letter! ')
+
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
 
