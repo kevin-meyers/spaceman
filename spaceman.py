@@ -20,7 +20,7 @@ def is_word_guessed(secret_word, letters_guessed):
         letters_guessed (list of strings): list of letters that have been guessed so far.
     Returns: 
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
-    '''
+	'''
 	for letter in secret_word:
 		if letter not in letters_guessed:
 			return False
