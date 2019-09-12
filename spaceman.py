@@ -23,9 +23,9 @@ def is_word_guessed(secret_word, letters_guessed):
     Returns:
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
         '''
-     for letter in secret_word:
-            if letter not in letters_guessed:
-                return False
+    for letter in secret_word:
+        if letter not in letters_guessed:
+            return False
 
     return True
 
@@ -40,7 +40,7 @@ def get_guessed_word(secret_word, letters_guessed):
         string: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
     '''
 
-     return re.sub(f'[^{"".join(guessed)}]', '_', word)
+    return re.sub(f'[^{"".join(letters_guessed)}]', '_', secret_word)
 
 
 def is_guess_in_word(guess, secret_word):
@@ -53,15 +53,19 @@ def is_guess_in_word(guess, secret_word):
         bool: True if the guess is in the secret_word, False otherwise
     '''
 
-     return guess in secret_word
+    return guess in secret_word
 
 
-def is_guess_valid(guess):
+def is_guess_valid(guess, letters_guessed):
     '''
 
 
     '''
-    return guess.isalpha() and len(guess) == 1
+    if guess in letters_guessed:
+        print('You\'ve already guessed that!')
+        return False
+
+    return guess.isalpha() and len(guess) == 1 
 
 
 def spaceman(secret_word):
@@ -70,40 +74,40 @@ def spaceman(secret_word):
     Args:
       secret_word (string): the secret word to guess.
     '''
-     letters_guessed = []
-      num_fails = len(secret_word)
-       while not is_word_guessed(secret_word, letters_guessed):
+    letters_guessed = []
+    num_fails = len(secret_word)
+    while not is_word_guessed(secret_word, letters_guessed):
             # TODO: show the player information about the game according to the project spec
 
-            guess = input('Guess a letter! ')
+        guess = input('Guess a letter! ')
 
-            if not is_guess_valid(guess):
-                print('Invalid guess')
-                continue
+        if not is_guess_valid(guess, letters_guessed):
+            print('Invalid guess')
+            continue
+        else:
+            letters_guessed.append(guess)
 
-            else:
-                letters_guessed.append(guess)
-            # TODO: Check if the guessed letter is in the secret or not and give the player feedback
-
-            if is_guess_in_word(guess, secret_word):
-                print('Good work! You still have {num_fails} remaining')
-
-            else:
-                num_fails -= 1
-
-                if num_fails < 0:
-                    break
-
-                print(
-                    'That was incorrect, now you only have {num_fails} remaining')
-            if
-            print(f'The current progress is {get_guessed_word()}')
-
-        if num_fails < 0:
-            print('You lose!')
+        if is_guess_in_word(guess, secret_word):
+            print(f'Good work! You still have {num_fails} remaining')
 
         else:
-            print('You won!')
+            num_fails -= 1
+
+            if num_fails <= 0:
+                break
+
+            print(f'That was incorrect, now you only have {num_fails} remaining')
+        print(f'The current progress is {get_guessed_word(secret_word, letters_guessed)}')
+
+
+
+    if num_fails < 0:
+        print('You lose!')
+
+    else:
+        print('You won!')
+
+    print(f'The word is: {secret_word}')
 
 
 # These function calls that will start the game
