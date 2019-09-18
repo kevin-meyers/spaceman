@@ -8,7 +8,7 @@ def load_word():
     Returns:
                  string: The secret word to be used in the spaceman guessing game
     '''
-    with open('words.txt', 'r') as f:
+    with open('../data/words.txt', 'r') as f:
         words_list = f.read().split(' ')
 
     return random.choice(words_list)
@@ -110,9 +110,8 @@ def spaceman(secret_word):
     print(f'The word is: {secret_word}')
 
 
-# These function calls that will start the game
-play = True
-
-while play:
-    spaceman(load_word())
-    play = input('Do you want to play again? y/any').lower() == 'y'
+if __name__ == '__main__':
+    play = True
+    while play:
+        spaceman(load_word())
+        play = input('Do you want to play again? y/any').lower() == 'y'
